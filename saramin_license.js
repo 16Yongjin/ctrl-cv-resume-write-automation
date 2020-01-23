@@ -1,39 +1,6 @@
 const puppeteer = require("puppeteer");
 
-const clickXPath = page => async selector => {
-  await page.waitForXPath(selector);
-  const [element] = await page.$x(selector);
-
-  if (element) {
-    console.log(selector, "클릭");
-    await element.click();
-  }
-
-  return null;
-};
-
-const clickContainsText = page => async (selector, text) => {
-  selector = selector.startsWith("//") ? selector : `//${selector}`;
-
-  return clickXPath(page)(`${selector}[contains(text(), '${text}')]`);
-};
-
-const clickText = page => async (selector, text) => {
-  selector = selector.startsWith("//") ? selector : `//${selector}`;
-
-  return clickXPath(page)(`${selector}[text()='${text}']`);
-};
-
-const clickText2 = page => (...selectors) => text => {
-  selectors = selectors
-    .map(s => (s.startsWith(".") ? `\*[contains(@class, "${s.slice(1)}")]` : s))
-    .join("//");
-
-  return clickXPath(page)(`//${selectors}[text()="${text}"]`);
-};
-
-const existSelector = page => async selector =>
-  (await page.$(selector)) !== null;
+const { clickText, existSelector } = require("./utils");
 
 const userData = {
   id: "autoresume", // 아이디
@@ -77,8 +44,8 @@ const main = async () => {
 
   // 합격구분 선택, 최종합격
   console.log("합격구분 선택");
-  await clickText2(page)("button")("합격구분 선택");
-  await clickText2(page)(".open", "a")("최종합격");
+  await clickText(page)("button")("합격구분 선택");
+  await clickText(page)(".open", "a")("최종합격");
 
   // 취득일 입력
   console.log("취득일 입력");

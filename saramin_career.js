@@ -1,28 +1,6 @@
 const puppeteer = require("puppeteer");
 
-const clickXPath = page => async selector => {
-  await page.waitForXPath(selector);
-  const [element] = await page.$x(selector);
-
-  if (element) {
-    console.log(selector, "클릭");
-    await element.click();
-  }
-
-  return null;
-};
-
-const clickContainsText = page => async (selector, text) => {
-  selector = selector.startsWith("//") ? selector : `//${selector}`;
-
-  return clickXPath(page)(`${selector}[contains(text(), '${text}')]`);
-};
-
-const clickText = page => async (selector, text) => {
-  selector = selector.startsWith("//") ? selector : `//${selector}`;
-
-  return clickXPath(page)(`${selector}[text()='${text}']`);
-};
+const { clickHasText, clickText, clickXPath } = require("./utils");
 
 const userData = {
   id: "autoresume", // 아이디
@@ -76,15 +54,12 @@ const main = async () => {
 
   // 퇴사사유 선택: ["업직종 전환", "근무조건", "경영악화", "계약만료", "출산/육아", "학업", "유학", "개인사정", "직접입력"]
   if (userData.retired) {
-    await clickText(page)("button", "퇴사사유 선택");
-    await clickText(page)(
-      `//div[contains(@class, "open")]//a`,
-      userData.retireReason
-    );
+    await clickText(page)("button")("퇴사사유 선택");
+    await clickText(page)(".open", "a")(userData.retireReason);
   }
 
   // 직무/직책 선택
-  await clickText(page)("a", "선택하기");
+  await clickText(page)("a")("선택하기");
   // 직무선택
   //  ["인턴/수습", "사원", "주임", "계장", "대리", "과장", "차장", "부장", "감사", "이사",  "상무", "전무", "부사장", "사장", "임원", "연구원", "주임연구원", "선임연구원", "책임연구원", "수석연구원" , "연구소장"]
   await clickXPath(page)(
@@ -103,7 +78,7 @@ const main = async () => {
   //   );
   // }
 
-  await clickText(page)("button", "완료");
+  await clickText(page)("button")("완료");
 
   // 직종 선택
   await page.click("input[id^=career_job_category_text]");
@@ -113,8 +88,8 @@ const main = async () => {
 
   // 지역 선택
   console.log("지역 선택");
-  await clickContainsText(page)("button", "근무지역");
-  await clickText(page)("a", userData.companyLocation);
+  await clickHasText(page)("button")("근무지역");
+  await clickText(page)("a")(userData.companyLocation);
 
   // 담당 부서 입력
   await page.type("input[id^=career_dept_nm]", userData.jobDepartment);
