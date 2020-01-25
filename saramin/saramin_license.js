@@ -1,12 +1,12 @@
 const puppeteer = require("puppeteer");
 
-const { clickText, existSelector } = require("./utils");
+const { clickText, existSelector } = require("../utils");
 
 const userData = {
   id: "autoresume", // 아이디
   pw: "autoresume1", // 비밀번호
   licenseName: "정보처리산업기사", // 자격증명,
-  licensePublicOrg: "발행기관", // 발행기관
+  licensePublicOrg: "한국산업인력공단", // 발행기관
   licenseObtainDate: "201906" // 획득일자
 };
 

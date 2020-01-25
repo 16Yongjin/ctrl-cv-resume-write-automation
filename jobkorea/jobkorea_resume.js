@@ -9,7 +9,7 @@ const {
   existXPath,
   clickAll,
   fill
-} = require("./utils");
+} = require("../utils");
 
 const userData = {
   id: "autoresume", // 아이디

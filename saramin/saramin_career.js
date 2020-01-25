@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 
-const { clickHasText, clickText, clickXPath } = require("./utils");
+const { clickHasText, clickText, clickXPath } = require("../utils");
 
 const userData = {
   id: "autoresume", // 아이디
