@@ -5,7 +5,7 @@ const {
   clickText,
   existSelector,
   existXPath
-} = require("../utils");
+} = require("../_utils");
 
 const userData = {
   id: "autoresume", // 아이디

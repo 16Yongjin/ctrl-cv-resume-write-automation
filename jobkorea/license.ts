@@ -8,22 +8,10 @@ import {
   clickText,
   fillIfEmpty
 } from "../utils";
+import { resetForm } from "./jobkoreaUtils";
 
 const fillLicense = (page: Page) => async ({ licenses }: IResumeData) => {
-  const licenseExisted = await existSelector(page)(
-    'button.button-field-remove[data-linked_form_id="formLicense"]'
-  );
-
-  if (!licenseExisted) {
-    await page.click('button[data-linked_form_id="formLicense"]');
-  }
-
-  console.log("자격증 초기화");
-  await clickAll(page)("#formLicense .buttonDeleteField");
-
-  for (let index = 0; index < licenses.length; index++) {
-    await page.click("#formLicense .buttonAddField");
-  }
+  await resetForm(page)("formLicense", licenses.length);
 
   for (let index = 0; index < licenses.length; index++) {
     const license = licenses[index];

@@ -6,6 +6,7 @@ import fillEducation from "./education";
 import { IResumeData } from "../IResume";
 import login from "./login";
 import fillLicense from "./license";
+import fillLanguage from "./lauguage";
 
 const userData: IResumeData = {
   id: "autoresume", // 아이디
@@ -77,10 +78,38 @@ const userData: IResumeData = {
   ],
   languages: [
     {
+      language: "영어", // 언어
+      languageExamName: "toeic", //시험종류
+      languageExamScore: "990", // 점수
+      languageExamLevel: "", // 급수, 리스트에 없는 값이면 중단 에러
+      languageExamObtainDate: "201906" // 취득일자
+    },
+    {
       language: "일본어", // 언어
       languageExamName: "JLPT", //시험종류
       languageExamScore: "", // 점수
       languageExamLevel: "1", // 급수, 리스트에 없는 값이면 중단 에러
+      languageExamObtainDate: "201906" // 취득일자
+    },
+    {
+      language: "중국어", // 언어
+      languageExamName: "hsk", //시험종류
+      languageExamScore: "", // 점수
+      languageExamLevel: "5", // 급수, 리스트에 없는 값이면 중단 에러
+      languageExamObtainDate: "201906" // 취득일자
+    },
+    {
+      language: "독일어", // 언어
+      languageExamName: "DSH", //시험종류
+      languageExamScore: "", // 점수
+      languageExamLevel: "5", // 급수, 리스트에 없는 값이면 중단 에러
+      languageExamObtainDate: "201906" // 취득일자
+    },
+    {
+      language: "아랍어", // 언어
+      languageExamName: "아랍어시험", //시험종류
+      languageExamScore: "100", // 점수
+      languageExamLevel: "", // 급수, 리스트에 없는 값이면 중단 에러
       languageExamObtainDate: "201906" // 취득일자
     }
   ],
@@ -109,6 +138,8 @@ const main = async () => {
   await fillCareer(page)(userData);
 
   await fillLicense(page)(userData);
+
+  await fillLanguage(page)(userData);
 
   // await page.click(".buttonComplete");
   // await page.waitForNavigation();

@@ -78,10 +78,50 @@ export const fillIfEmpty = (page: Page) => async (
   return page.type(selector, "");
 };
 
+export const findInList = (page: Page) => async (
+  listSelector: string,
+  value: string
+) => {
+  return page.evaluate(
+    (selector, value) => {
+      let elements: HTMLElement[] = Array.from(
+        document.querySelectorAll(selector)
+      );
+      const res = elements.find(
+        i => i.textContent.toLowerCase() === value.toLowerCase()
+      );
+
+      return res && res.textContent;
+    },
+    listSelector,
+    value
+  );
+};
+
 export const clickAll = (page: Page) => async (selector: string) => {
   return page.evaluate(selector => {
-    let elements = document.querySelectorAll(selector);
+    let elements: HTMLElement[] = Array.from(
+      document.querySelectorAll(selector)
+    );
     console.log("click All", elements.length);
     if (elements.length) for (let element of elements) element.click();
   }, selector);
 };
+
+export const clickEval = (page: Page) => async (selector: string) => {
+  return page.evaluate(selector => {
+    let element: HTMLElement = document.querySelector(selector);
+    console.log("clickEval", element);
+
+    if (element) element.click();
+  }, selector);
+};
+
+export const isVisible = (page: Page) => (selector: string) =>
+  page.$eval(
+    selector,
+    elem => window.getComputedStyle(elem).getPropertyValue("display") !== "none"
+  );
+
+export const isHidden = (page: Page) => async (selector: string) =>
+  !(await isVisible(page)(selector));

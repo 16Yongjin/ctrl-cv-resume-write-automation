@@ -1,21 +1,11 @@
 import { Page } from "puppeteer";
 
 import { IResumeData } from "../IResume";
-import { clickAll, fill, existSelector, clickText } from "../utils";
+import { fill, existSelector, clickText } from "../utils";
+import { resetForm } from "./jobkoreaUtils";
 
 const fillCareer = (page: Page) => async ({ careers }: IResumeData) => {
-  const careerExisted = await existSelector(page)(
-    'button.button-field-remove[data-linked_form_id="formCareer"]'
-  );
-  if (!careerExisted) {
-    await page.click('button[data-linked_form_id="formCareer"]');
-  }
-
-  console.log("경력 초기화");
-  await clickAll(page)("#formCareer .buttonDeleteField");
-  for (let index = 0; index < careers.length; index++) {
-    await page.click("#formCareer .buttonAddField");
-  }
+  await resetForm(page)("formCareer", careers.length);
 
   for (let index = 0; index < careers.length; index++) {
     const career = careers[index];

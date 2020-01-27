@@ -1,23 +1,11 @@
 import { Page } from "puppeteer";
 
 import { IResumeData } from "../IResume";
-import { clickAll, fill, existSelector, clickText } from "../utils";
+import { fill, existSelector, clickText } from "../utils";
+import { resetForm } from "./jobkoreaUtils";
 
 const fillEducation = (page: Page) => async ({ educations }: IResumeData) => {
-  const educatoinExisted = await existSelector(page)(
-    'button.button-field-remove[data-linked_form_id="formEducation"]'
-  );
-
-  if (!educatoinExisted) {
-    await page.click('button[data-linked_form_id="formCareer"]');
-  }
-
-  console.log("학력 초기화");
-  await clickAll(page)("#formEducation .buttonDeleteField");
-
-  for (let index = 0; index < educations.length; index++) {
-    await page.click("#school_addbutton");
-  }
+  await resetForm(page)("formEducation", educations.length);
 
   for (let index = 0; index < educations.length; index++) {
     const education = educations[index];
