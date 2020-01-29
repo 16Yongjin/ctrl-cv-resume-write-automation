@@ -22,7 +22,9 @@ export const clickText = (page: Page) => (...selectors: string[]) => (
 ) => {
   const selector = aggregateSelectors(selectors);
 
-  return clickXPath(page)(`//${selector}[text()="${text}"]`);
+  return clickXPath(page)(
+    `${selector.startsWith("//") ? "" : "//"}${selector}[text()="${text}"]`
+  );
 };
 
 export const clickHasInnerText = (page: Page) => (...selectors: string[]) => (

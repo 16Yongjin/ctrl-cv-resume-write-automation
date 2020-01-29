@@ -1,12 +1,9 @@
 import * as puppeteer from "puppeteer";
 import { Page } from "puppeteer";
 
-import fillCareer from "./career";
-import fillEducation from "./education";
 import { IResumeData } from "../IResume";
 import login from "./login";
-import fillLicense from "./license";
-import fillLanguage from "./lauguage";
+import fillCareer from "./career";
 
 const userData: IResumeData = {
   id: "autoresume", // 아이디
@@ -130,16 +127,13 @@ const userData: IResumeData = {
 const main = async () => {
   const page = await login(userData);
 
-  // 이름, 생년월일, 성별이 이미 입력되어 있어야 합니다.
-  await page.goto("https://www.jobkorea.co.kr/User/Resume/Write");
-
-  await fillEducation(page)(userData);
+  // await fillEducation(page)(userData);
 
   await fillCareer(page)(userData);
 
-  await fillLicense(page)(userData);
+  // await fillLicense(page)(userData);
 
-  await fillLanguage(page)(userData);
+  // await fillLanguage(page)(userData);
 
   // await page.click(".buttonComplete");
   // await page.waitForNavigation();
