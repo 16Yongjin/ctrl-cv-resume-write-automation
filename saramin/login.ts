@@ -6,13 +6,12 @@ const login = async ({ id, pw }: IResumeData): Promise<Page> => {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   await page.setViewport({ width: 1368, height: 802 });
-  await page.goto("https://www.saramin.co.kr");
+  await page.goto("https://www.saramin.co.kr/zf_user/auth?ut=p");
 
   // 로그인
-  await page.type("#login_person_id", id);
-  await page.type("#login_person_pwd", pw);
-  await page.click(".btn_login");
-  await page.waitForNavigation();
+  await page.type("#id", id);
+  await page.type("#password", pw);
+  await page.click(".btn-login");
 
   return page;
 };

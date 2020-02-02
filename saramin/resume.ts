@@ -4,6 +4,9 @@ import { Page } from "puppeteer";
 import { IResumeData } from "../IResume";
 import login from "./login";
 import fillCareer from "./career";
+import fillEducation from "./education";
+import fillLanguage from "./language";
+import fillLicense from "./license";
 
 const userData: IResumeData = {
   id: "autoresume", // 아이디
@@ -12,8 +15,9 @@ const userData: IResumeData = {
     {
       educationLevel: "대학교(4년)",
       edcationDegree: "",
-      schoolName: "한국외국어대학교 (서울)", // 학교 이름
-      educationState: "재학중",
+      schoolName: "한국외국어대학교 (서울)", // 학교 이름,
+      schoolLocation: "서울",
+      educationState: "졸업",
       majorCategory: "어문학", // 주전공 계열
       majorName: "포르투갈어과", // 주전공 이름
       hasMinor: true, // 부/이중/복수 전공 여부
@@ -22,7 +26,6 @@ const userData: IResumeData = {
       minorName: "융합소프트웨어전공", // 부전공 이름
       schoolEntrance: "201603", // 입학일자(YYYYMM)
       schoolGraduation: "202001", // 졸업일자(YYYYMM)
-      dayOrNight: "주간", // 주간/야간 선택
       gpa: "3.5", // 학점
       gpaScale: "4.5" // 기준학점
     },
@@ -30,6 +33,7 @@ const userData: IResumeData = {
       educationLevel: "대학원",
       edcationDegree: "석사",
       schoolName: "한국외국어대학교 (서울)", // 학교 이름
+      schoolLocation: "서울",
       educationState: "재학중",
       majorCategory: "어문학", // 주전공 계열
       majorName: "포르투갈어과", // 주전공 이름
@@ -39,7 +43,6 @@ const userData: IResumeData = {
       minorName: "융합소프트웨어전공", // 부전공 이름
       schoolEntrance: "201603", // 입학일자(YYYYMM)
       schoolGraduation: "202001", // 졸업일자(YYYYMM)
-      dayOrNight: "주간", // 주간/야간 선택
       gpa: "3.5", // 학점
       gpaScale: "4.5" // 기준학점
     }
@@ -76,7 +79,7 @@ const userData: IResumeData = {
   languages: [
     {
       language: "영어", // 언어
-      languageExamName: "toeic", //시험종류
+      languageExamName: "TOEIC", //시험종류
       languageExamScore: "990", // 점수
       languageExamLevel: "", // 급수, 리스트에 없는 값이면 중단 에러
       languageExamObtainDate: "201906" // 취득일자
@@ -90,7 +93,7 @@ const userData: IResumeData = {
     },
     {
       language: "중국어", // 언어
-      languageExamName: "hsk", //시험종류
+      languageExamName: "HSK", //시험종류
       languageExamScore: "", // 점수
       languageExamLevel: "5", // 급수, 리스트에 없는 값이면 중단 에러
       languageExamObtainDate: "201906" // 취득일자
@@ -117,7 +120,7 @@ const userData: IResumeData = {
       licenseObtainDate: "201906" // 획득일자
     },
     {
-      licenseName: "정보처리기능사", // 자격증명,
+      licenseName: "정보처리", // 자격증명,
       licensePublicOrg: "한국산업인력공단", // 발행기관
       licenseObtainDate: "201906" // 획득일자
     }
@@ -129,11 +132,11 @@ const main = async () => {
 
   // await fillEducation(page)(userData);
 
-  await fillCareer(page)(userData);
-
-  // await fillLicense(page)(userData);
+  // await fillCareer(page)(userData);
 
   // await fillLanguage(page)(userData);
+
+  await fillLicense(page)(userData);
 
   // await page.click(".buttonComplete");
   // await page.waitForNavigation();

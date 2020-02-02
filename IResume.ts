@@ -2,6 +2,9 @@ export interface IEducation {
   educationLevel: string;
   edcationDegree: string;
   schoolName: string;
+  schoolLocation: string;
+  // 사람인: ["졸업", "재학중", "휴학중", "수료", "중퇴", "자퇴", "졸업예정"]
+  // 잡코리아: [ "졸업", "졸업예정", "재학중", "중퇴", "수료", "휴학" ]
   educationState: string;
   majorCategory: string;
   majorName: string;
@@ -11,7 +14,6 @@ export interface IEducation {
   minorCategory: string;
   schoolEntrance: string;
   schoolGraduation: string;
-  dayOrNight: string;
   gpa: string;
   gpaScale: string;
 }

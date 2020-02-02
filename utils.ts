@@ -90,7 +90,7 @@ export const findInList = (page: Page) => async (
         document.querySelectorAll(selector)
       );
       const res = elements.find(
-        i => i.textContent.toLowerCase() === value.toLowerCase()
+        i => i.textContent.toLowerCase().trim() === value.toLowerCase().trim()
       );
 
       return res && res.textContent;
@@ -117,6 +117,21 @@ export const clickEval = (page: Page) => async (selector: string) => {
 
     if (element) element.click();
   }, selector);
+};
+
+export const click$x = (page: Page) => async (xpath: string) => {
+  return page.evaluate(xpath => {
+    const elements = document.evaluate(
+      xpath,
+      document,
+      null,
+      XPathResult.ANY_TYPE,
+      null
+    );
+    const element: any = elements.iterateNext();
+
+    if (element) element.click();
+  }, xpath);
 };
 
 export const isVisible = (page: Page) => (selector: string) =>
