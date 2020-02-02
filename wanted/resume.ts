@@ -1,3 +1,4 @@
+import { fill } from "./../utils";
 import * as puppeteer from "puppeteer";
 import { Page } from "puppeteer";
 
@@ -9,8 +10,8 @@ import fillLanguage from "./language";
 import fillLicense from "./license";
 
 const userData: IResumeData = {
-  id: "autoresume", // 아이디
-  pw: "autoresume1", // 비밀번호
+  id: "autoresume@ruu.kr", // 아이디
+  pw: "autoresume", // 비밀번호
   privacy: {
     name: "김김김",
     email: "autoresume@ruu.kr",
@@ -97,20 +98,6 @@ const userData: IResumeData = {
       languageExamObtainDate: "201906" // 취득일자
     },
     {
-      language: "중국어", // 언어
-      languageExamName: "HSK", //시험종류
-      languageExamScore: "", // 점수
-      languageExamLevel: "5", // 급수, 리스트에 없는 값이면 중단 에러
-      languageExamObtainDate: "201906" // 취득일자
-    },
-    {
-      language: "독일어", // 언어
-      languageExamName: "DSH", //시험종류
-      languageExamScore: "", // 점수
-      languageExamLevel: "5", // 급수, 리스트에 없는 값이면 중단 에러
-      languageExamObtainDate: "201906" // 취득일자
-    },
-    {
       language: "아랍어", // 언어
       languageExamName: "아랍어시험", //시험종류
       languageExamScore: "100", // 점수
@@ -135,17 +122,22 @@ const userData: IResumeData = {
 const main = async () => {
   const page = await login(userData);
 
-  // await fillEducation(page)(userData);
+  await page.goto("https://www.wanted.co.kr/cv/list");
 
-  // await fillCareer(page)(userData);
+  await page.waitFor(".btn-add-resume");
+  await page.click(".btn-add-resume");
+  await page.waitForNavigation();
 
-  // await fillLanguage(page)(userData);
+  await page.waitFor(".mobile");
+  await fill(page)(".mobile", userData.privacy.phone);
+
+  await fillEducation(page)(userData);
+
+  await fillCareer(page)(userData);
+
+  await fillLanguage(page)(userData);
 
   await fillLicense(page)(userData);
-
-  // await page.click(".buttonComplete");
-  // await page.waitForNavigation();
-  // await clickText(page)("a")("작성한 이력서 보기");
 };
 
 main();

@@ -8,6 +8,11 @@ import fillLanguage from "./lauguage";
 const userData: IResumeData = {
   id: "autoresume", // 아이디
   pw: "autoresume1", // 비밀번호
+  privacy: {
+    name: "김김김",
+    email: "autoresume@ruu.kr",
+    phone: "010-7777-7777"
+  },
   educations: [
     {
       educationLevel: "대학교(4년)",

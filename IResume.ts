@@ -1,3 +1,9 @@
+export interface Privacy {
+  name: string;
+  email: string;
+  phone: string;
+}
+
 export interface IEducation {
   educationLevel: string;
   edcationDegree: string;
@@ -49,6 +55,7 @@ export interface ILanguage {
 export interface IResumeData {
   id: string;
   pw: string;
+  privacy: Privacy;
   educations: IEducation[];
   careers: ICareer[];
   licenses: ILicense[];
