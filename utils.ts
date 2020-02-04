@@ -50,6 +50,8 @@ export const existXPath = (page: Page) => async (selector: string) =>
   (await page.$x(selector)).length !== 0;
 
 export const fill = (page: Page) => async (selector: string, value: string) => {
+  await page.waitFor(selector);
+
   await page.evaluate(
     (selector, value) => {
       const target = document.querySelector(selector);
