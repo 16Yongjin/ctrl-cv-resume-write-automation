@@ -6,8 +6,8 @@ import fillLicense from "./license";
 import fillLanguage from "./lauguage";
 
 const userData: IResumeData = {
-  id: "autoresume", // 아이디
-  pw: "autoresume1", // 비밀번호
+  id: "", // 아이디
+  pw: "", // 비밀번호
   privacy: {
     name: "김김김",
     email: "autoresume@ruu.kr",
@@ -142,10 +142,6 @@ const main = async () => {
   await fillLicense(page)(userData);
 
   await fillLanguage(page)(userData);
-
-  // await page.click(".buttonComplete");
-  // await page.waitForNavigation();
-  // await clickText(page)("a")("작성한 이력서 보기");
 };
 
 main();

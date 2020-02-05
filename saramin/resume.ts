@@ -1,6 +1,3 @@
-import * as puppeteer from "puppeteer";
-import { Page } from "puppeteer";
-
 import { IResumeData } from "../IResume";
 import login from "./login";
 import fillCareer from "./career";
@@ -9,8 +6,8 @@ import fillLanguage from "./language";
 import fillLicense from "./license";
 
 const userData: IResumeData = {
-  id: "autoresume", // 아이디
-  pw: "autoresume1", // 비밀번호
+  id: "", // 아이디
+  pw: "", // 비밀번호
   privacy: {
     name: "김김김",
     email: "autoresume@ruu.kr",
@@ -135,17 +132,13 @@ const userData: IResumeData = {
 const main = async () => {
   const page = await login(userData);
 
-  // await fillEducation(page)(userData);
+  await fillEducation(page)(userData);
 
-  // await fillCareer(page)(userData);
+  await fillCareer(page)(userData);
 
-  // await fillLanguage(page)(userData);
+  await fillLanguage(page)(userData);
 
   await fillLicense(page)(userData);
-
-  // await page.click(".buttonComplete");
-  // await page.waitForNavigation();
-  // await clickText(page)("a")("작성한 이력서 보기");
 };
 
 main();

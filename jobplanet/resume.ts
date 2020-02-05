@@ -5,8 +5,8 @@ import fillPrivacy from "./privacy";
 import fillEducation from "./education";
 
 const userData: IResumeData = {
-  id: "autoresume@ruu.kr", // 아이디
-  pw: "autoresume", // 비밀번호
+  id: "", // 아이디
+  pw: "", // 비밀번호
   privacy: {
     name: "김김김",
     email: "autoresume@ruu.kr",
